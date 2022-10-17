@@ -53,11 +53,10 @@ const jsonQuery = {
     format: "json-stat2",
   },
 };
-
 const municipalityInput = document.querySelector("#input-area");
 const btnSearchByMunicipality = document.querySelector("#submit-data");
 const btnDataPrediction = document.querySelector("#add-data");
-//const btnNavigation = document.querySelector("#navigation");
+const linkNavigation = document.querySelector("#navigation");
 
 let populationData = undefined;
 let municipalityData = undefined;
@@ -99,6 +98,17 @@ const loadMunicipalityData = async () => {
   return data;
 };
 
+const updateLinkToNewchart = () => {
+  let code = JSON.stringify(jsonQuery["query"][1].selection.values[0])
+  let name = undefined
+  for (const [key, value] of Object.entries(municipalityCodes)) {
+    if (municipalityCodes[key] === jsonQuery["query"][1].selection.values[0]) {
+      name = JSON.stringify(key)
+    }
+  }
+  linkNavigation.href = `/newchart.html?code=${code}&name=${name}`
+}
+
 const initApp = async () => {
   populationData = await loadPopulationData();
   municipalityData = await loadMunicipalityData();
@@ -114,6 +124,10 @@ const initApp = async () => {
   }
   //console.log(municipalityCodes)
   //console.log(Object.values(municipalityCodes).length)
+
+
+  // change value of name and code so that newchart.html shows corrects municipality data
+  updateLinkToNewchart()
   buildChart();
 };
 
@@ -139,11 +153,14 @@ btnSearchByMunicipality.addEventListener("click", async (e) => {
   populationData = await loadPopulationData();
   //console.log(municipalityCodes[searchTerm])
 
+  // change value of "choise" so that viewchart.html shows corrects municipality data
+  updateLinkToNewchart()
+
   buildChart();
 });
 /*
 btnNavigation.addEventListener("click", () => {
-  window.location.replace("/newchart.html");
+  location.href = '/newchart.html';
 });
 */
 const buildChart = () => {
