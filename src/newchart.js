@@ -2,10 +2,10 @@ import "./styles.css";
 
 import { Chart } from "frappe-charts/dist/frappe-charts.min.esm";
 
-let jsonQuery = {};
-let birthData = [];
-let deathData = [];
-let municipalityName = "";
+let jsonQuery = undefined;
+let birthData = undefined;
+let deathData = undefined;
+let municipalityName = undefined;
 
 const loadData = async () => {
   const url =
