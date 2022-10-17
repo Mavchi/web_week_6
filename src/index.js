@@ -141,11 +141,11 @@ btnSearchByMunicipality.addEventListener("click", async (e) => {
 
   buildChart();
 });
-
+/*
 btnNavigation.addEventListener("click", () => {
   window.location.replace("/newchart.html");
 });
-
+*/
 const buildChart = () => {
   let years = Object.values(populationData.dimension.Vuosi.category.label);
   let population = populationData.value;
