@@ -58,7 +58,7 @@ const btnSearchByMunicipality = document.querySelector("#submit-data");
 const btnDataPrediction = document.querySelector("#add-data");
 const linkNavigation = document.querySelector("#navigation");
 
-let chart = undefined
+let chart = undefined;
 
 let populationData = undefined;
 let municipalityData = undefined;
@@ -101,15 +101,17 @@ const loadMunicipalityData = async () => {
 };
 
 const updateLinkToNewchart = () => {
-  let code = JSON.stringify(jsonQuery["query"][1].selection.values[0])
-  let name = undefined
+  let code = JSON.stringify(jsonQuery["query"][1].selection.values[0]);
+  let name = undefined;
   for (const [key, value] of Object.entries(municipalityCodes)) {
     if (municipalityCodes[key] === jsonQuery["query"][1].selection.values[0]) {
-      name = JSON.stringify(key)
+      name = JSON.stringify(key);
     }
   }
-  linkNavigation.href = `/newchart.html?code=${code}&name=${name}`
-}
+  linkNavigation.href = `/newchart.html?code=${code}&name=${name}&query=${JSON.stringify(
+    jsonQuery
+  )}`;
+};
 
 const initApp = async () => {
   populationData = await loadPopulationData();
@@ -127,9 +129,8 @@ const initApp = async () => {
   //console.log(municipalityCodes)
   //console.log(Object.values(municipalityCodes).length)
 
-
   // change value of name and code so that newchart.html shows corrects municipality data
-  updateLinkToNewchart()
+  updateLinkToNewchart();
   buildChart();
 };
 
@@ -156,18 +157,18 @@ btnSearchByMunicipality.addEventListener("click", async (e) => {
   //console.log(municipalityCodes[searchTerm])
 
   // change value of "choise" so that viewchart.html shows corrects municipality data
-  updateLinkToNewchart()
+  updateLinkToNewchart();
 
   // update chart with new datapoints
   chart.update({
     labels: Object.values(populationData.dimension.Vuosi.category.label),
     datasets: [
       {
-      name: "Population data",
-      values: populationData.value,
-      }
+        name: "Population data",
+        values: populationData.value,
+      },
     ],
-  })
+  });
 });
 /*
 btnNavigation.addEventListener("click", () => {
@@ -224,7 +225,7 @@ btnDataPrediction.addEventListener("click", () => {
       Object.values(populationData.dimension.Vuosi.category.label).length - 1
     ]
   );
-  chart.addDataPoint(latestYear+1, [meanFunction(populationData.value)])
+  chart.addDataPoint(latestYear + 1, [meanFunction(populationData.value)]);
 });
 
 initApp();
