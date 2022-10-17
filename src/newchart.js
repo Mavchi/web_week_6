@@ -118,8 +118,6 @@ const buildChart = () => {
     };
 
     const chart = new Chart("#chart", {
-        // or a DOM element,
-        // new Chart() in case of ES6 module with above usage
         title: `Births and deaths in ${municipalityName}`,
         data: data,
         type: "bar", // or 'bar', 'line', 'scatter', 'pie', 'percentage'

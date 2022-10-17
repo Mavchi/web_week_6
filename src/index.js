@@ -58,6 +58,8 @@ const btnSearchByMunicipality = document.querySelector("#submit-data");
 const btnDataPrediction = document.querySelector("#add-data");
 const linkNavigation = document.querySelector("#navigation");
 
+let chart = undefined
+
 let populationData = undefined;
 let municipalityData = undefined;
 let municipalityCodes = {};
@@ -156,6 +158,7 @@ btnSearchByMunicipality.addEventListener("click", async (e) => {
   // change value of "choise" so that viewchart.html shows corrects municipality data
   updateLinkToNewchart()
 
+
   buildChart();
 });
 /*
@@ -181,9 +184,7 @@ const buildChart = () => {
     ],
   };
 
-  const chart = new Chart("#chart", {
-    // or a DOM element,
-    // new Chart() in case of ES6 module with above usage
+  chart = new Chart("#chart", {
     title: "Population Data",
     data: data,
     type: "line", // or 'bar', 'line', 'scatter', 'pie', 'percentage'
@@ -208,6 +209,16 @@ btnDataPrediction.addEventListener("click", () => {
     return mean;
   };
 
+  // now add new datapint to existing chart instead of drawing new one
+  // first new year
+  let latestYear = parseInt(
+    Object.values(populationData.dimension.Vuosi.category.label)[
+      Object.values(populationData.dimension.Vuosi.category.label).length - 1
+    ]
+  );
+  chart.addDataPoint(latestYear+1, [meanFunction(populationData.value)])
+  //console.log(meanFunction(populationData.value))
+/*
   // first we add new value of mean to chart data according to given formula that is
   // calculated in function above meanFunction
   populationData.value.push(meanFunction(populationData.value));
@@ -223,6 +234,7 @@ btnDataPrediction.addEventListener("click", () => {
   ).toString();
   //console.log(populationData.dimension.Vuosi.category.label)
   buildChart();
+*/
 });
 
 initApp();
