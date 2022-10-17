@@ -57,7 +57,7 @@ const jsonQuery = {
 const municipalityInput = document.querySelector("#input-area");
 const btnSearchByMunicipality = document.querySelector("#submit-data");
 const btnDataPrediction = document.querySelector("#add-data");
-const btnNavigation = document.querySelector("#navigation");
+//const btnNavigation = document.querySelector("#navigation");
 
 let populationData = undefined;
 let municipalityData = undefined;
