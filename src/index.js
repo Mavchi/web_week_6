@@ -158,8 +158,16 @@ btnSearchByMunicipality.addEventListener("click", async (e) => {
   // change value of "choise" so that viewchart.html shows corrects municipality data
   updateLinkToNewchart()
 
-
-  buildChart();
+  // update chart with new datapoints
+  chart.update({
+    labels: Object.values(populationData.dimension.Vuosi.category.label),
+    datasets: [
+      {
+      name: "Population data",
+      values: populationData.value,
+      }
+    ],
+  })
 });
 /*
 btnNavigation.addEventListener("click", () => {
@@ -217,24 +225,6 @@ btnDataPrediction.addEventListener("click", () => {
     ]
   );
   chart.addDataPoint(latestYear+1, [meanFunction(populationData.value)])
-  //console.log(meanFunction(populationData.value))
-/*
-  // first we add new value of mean to chart data according to given formula that is
-  // calculated in function above meanFunction
-  populationData.value.push(meanFunction(populationData.value));
-  // also lets add new year according to lastest year given by api
-  // latest year was 2021 when doing this course submission
-  let latestYear = parseInt(
-    Object.values(populationData.dimension.Vuosi.category.label)[
-      Object.values(populationData.dimension.Vuosi.category.label).length - 1
-    ]
-  );
-  populationData.dimension.Vuosi.category.label[latestYear + 1] = (
-    latestYear + 1
-  ).toString();
-  //console.log(populationData.dimension.Vuosi.category.label)
-  buildChart();
-*/
 });
 
 initApp();

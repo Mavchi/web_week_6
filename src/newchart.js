@@ -69,12 +69,11 @@ const loadData = async () => {
     });
 
     if (!res.ok) {
-        console.log("error loading page");
         return;
     }
 
     const data = await res.json();
-    console.log(data)
+    //console.log(data)
     return data;
 }
 
@@ -84,8 +83,8 @@ const initApp = async () => {
     jsonQuery["query"][1].selection.values[0] = JSON.parse(urlParams.get("code"))
     municipalityName = JSON.parse(urlParams.get("name"))
 
-    console.log(jsonQuery["query"][1].selection.values[0])
-    console.log(municipalityName)
+    //console.log(jsonQuery["query"][1].selection.values[0])
+    //console.log(municipalityName)
 
     // fetching is based on a global variable jsonQuery, which we update for each call if needed
     // first we fetch birth data for a municapality
